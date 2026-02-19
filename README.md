@@ -1,4 +1,4 @@
-# Surf VCard — Nextcloud Contacts API
+# SURF contacts vcard API — Nextcloud Contacts API
 
 A Nextcloud app that exposes an **admin-only OCS API** for creating, reading, updating, and deleting VCard contacts in any user's address book.
 
@@ -25,18 +25,18 @@ When users accept federated sharing invitations between Nextcloud instances, thi
 
 ```bash
 # Copy the app into your Nextcloud apps directory
-cp -r surf_vcard /var/www/nextcloud/apps/
+cp -r contact_vcard_api /var/www/nextcloud/apps/
 
 # Set correct ownership
-chown -R www-data:www-data /var/www/nextcloud/apps/surf_vcard
+chown -R www-data:www-data /var/www/nextcloud/apps/contact_vcard_api
 
 # Enable the app
-sudo -u www-data php occ app:enable surf_vcard
+sudo -u www-data php occ app:enable contact_vcard_api
 ```
 
 ## API Reference
 
-**Base URL:** `https://{nextcloud-domain}/ocs/v2.php/apps/surf_vcard`
+**Base URL:** `https://{nextcloud-domain}/ocs/v2.php/apps/contact_vcard_api`
 
 **Authentication:** HTTP Basic Auth with Nextcloud admin credentials
 
@@ -48,12 +48,12 @@ sudo -u www-data php occ app:enable surf_vcard
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/v1/contacts` | List all contacts (supports `user_id`, `limit`, `offset` query params) |
-| `POST` | `/api/v1/contacts` | Create a contact |
-| `GET` | `/api/v1/contacts/{userId}` | List contacts for a specific user |
-| `GET` | `/api/v1/contacts/{userId}/{uid}` | Get a single contact |
-| `PUT` | `/api/v1/contacts/{userId}/{uid}` | Update a contact |
-| `DELETE` | `/api/v1/contacts/{userId}/{uid}` | Delete a contact |
+| `GET` | `/api/v1/contact_vcard_api` | List all contacts (supports `user_id`, `limit`, `offset` query params) |
+| `POST` | `/api/v1/contact_vcard_api` | Create a contact |
+| `GET` | `/api/v1/contact_vcard_api/{userId}` | List contacts for a specific user |
+| `GET` | `/api/v1/contact_vcard_api/{userId}/{uid}` | Get a single contact |
+| `PUT` | `/api/v1/contact_vcard_api/{userId}/{uid}` | Update a contact |
+| `DELETE` | `/api/v1/contact_vcard_api/{userId}/{uid}` | Delete a contact |
 
 ### Create a contact
 
@@ -68,7 +68,7 @@ curl -X POST -u 'admin:password' \
     "cloud_id": "bob@remote.cloud",
     "organization": "Partner Org"
   }' \
-  'https://nextcloud.example.com/ocs/v2.php/apps/surf_vcard/api/v1/contacts'
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts'
 ```
 
 **Required fields:** `user_id`, `displayname`, `email`, `cloud_id`
@@ -80,12 +80,18 @@ curl -X POST -u 'admin:password' \
 # All contacts
 curl -u 'admin:password' \
   -H 'OCS-APIRequest: true' \
-  'https://nextcloud.example.com/ocs/v2.php/apps/surf_vcard/api/v1/contacts'
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts'
 
 # Filtered by user
 curl -u 'admin:password' \
   -H 'OCS-APIRequest: true' \
-  'https://nextcloud.example.com/ocs/v2.php/apps/surf_vcard/api/v1/contacts?user_id=alice'
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts?user_id=alice'
+
+# Get all contacts for user Alice
+curl -u 'admin:password' \
+  -H 'OCS-APIRequest: true' \
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts/alice'
+
 ```
 
 ### Update a contact
@@ -99,7 +105,7 @@ curl -X PUT -u 'admin:password' \
     "email": "bob.jr@example.com",
     "cloud_id": "bob.jr@remote.cloud"
   }' \
-  'https://nextcloud.example.com/ocs/v2.php/apps/surf_vcard/api/v1/contacts/alice/{uid}'
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts/alice/{uid}'
 ```
 
 ### Delete a contact
@@ -107,7 +113,7 @@ curl -X PUT -u 'admin:password' \
 ```bash
 curl -X DELETE -u 'admin:password' \
   -H 'OCS-APIRequest: true' \
-  'https://nextcloud.example.com/ocs/v2.php/apps/surf_vcard/api/v1/contacts/alice/{uid}'
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts/alice/{uid}'
 ```
 
 ### VCard Fields
@@ -136,7 +142,7 @@ Each created contact contains:
 ## Project Structure
 
 ```
-surf_vcard/
+contact_vcard_api/
 ├── appinfo/
 │   ├── info.xml              # App metadata (id, version, dependencies)
 │   └── routes.php            # OCS API route definitions
