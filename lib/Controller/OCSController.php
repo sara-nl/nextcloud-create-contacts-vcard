@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OCA\SurfVcard\Controller;
+namespace OCA\VCardAPI\Controller;
 
-use OCA\SurfVcard\AppInfo\Application;
-use OCA\SurfVcard\Service\VCardService;
+use OCA\VCardAPI\AppInfo\Application;
+use OCA\VCardAPI\Service\VCardService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController as BaseOCSController;

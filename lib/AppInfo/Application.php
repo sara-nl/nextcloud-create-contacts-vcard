@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OCA\SurfVcard\AppInfo;
+namespace OCA\VCardAPI\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -11,7 +11,7 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
 class Application extends App implements IBootstrap
 {
-    public const APP_ID = 'surf_vcard';
+    public const APP_ID = 'contact_vcard_api';
 
     public function __construct(array $urlParams = [])
     {

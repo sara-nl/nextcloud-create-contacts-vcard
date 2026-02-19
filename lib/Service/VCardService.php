@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OCA\SurfVcard\Service;
+namespace OCA\VCardAPI\Service;
 
 use OCA\DAV\CardDAV\CardDavBackend;
 use OCP\IUserManager;

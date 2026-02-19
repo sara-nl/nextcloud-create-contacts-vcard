@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>surf_vcard</id>
-    <name>Surf VCard</name>
-    <summary>Admin API for VCard management between Nextcloud instances</summary>
+    <id>contact_vcard_api</id>
+    <name>Contact VCard API</name>
+    <summary>Admin API for Contact VCard management between Nextcloud instances</summary>
     <description><![CDATA[
 Surf VCard provides an OCS API for administrators to manage VCards across Nextcloud instances.
 
@@ -15,12 +15,12 @@ Features:
 
 Use case: Automatically add contacts when users accept invitations from federated instances.
     ]]></description>
-    <version>1.0.0</version>
+    <version>0.1.0</version>
     <licence>agpl</licence>
     <author mail="info@surf.nl">SURF</author>
-    <namespace>SurfVcard</namespace>
+    <namespace>VCardAPI</namespace>
     <category>integration</category>
-    <bugs>https://github.com/surf/surf-vcard/issues</bugs>
+    <bugs>https://github.com/sara-nl/nextcloud-create-contacts-vcard/issues</bugs>
     <dependencies>
         <nextcloud min-version="28" max-version="32"/>
     </dependencies>
