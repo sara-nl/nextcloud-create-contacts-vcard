@@ -15,13 +15,13 @@ Features:
 
 Use case: Automatically add contacts when users accept invitations from federated instances.
     ]]></description>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <licence>agpl</licence>
     <author mail="info@surf.nl">SURF</author>
     <namespace>VCardAPI</namespace>
     <category>integration</category>
     <bugs>https://github.com/sara-nl/nextcloud-create-contacts-vcard/issues</bugs>
     <dependencies>
-        <nextcloud min-version="28" max-version="32"/>
+        <nextcloud min-version="28" max-version="33"/>
     </dependencies>
 </info>
