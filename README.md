@@ -18,8 +18,8 @@ When users accept federated sharing invitations between Nextcloud instances, thi
 
 | Requirement | Version |
 |---|---|
-| Nextcloud | 28 – 32 |
-| PHP | 8.0+ |
+| Nextcloud | 33 – 35 |
+| PHP | 8.2+ (8.3+ on Nextcloud 35) |
 
 ## Installation
 
@@ -48,12 +48,12 @@ sudo -u www-data php occ app:enable contact_vcard_api
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/v1/contact_vcard_api` | List all contacts (supports `user_id`, `limit`, `offset` query params) |
-| `POST` | `/api/v1/contact_vcard_api` | Create a contact |
-| `GET` | `/api/v1/contact_vcard_api/{userId}` | List contacts for a specific user |
-| `GET` | `/api/v1/contact_vcard_api/{userId}/{uid}` | Get a single contact |
-| `PUT` | `/api/v1/contact_vcard_api/{userId}/{uid}` | Update a contact |
-| `DELETE` | `/api/v1/contact_vcard_api/{userId}/{uid}` | Delete a contact |
+| `GET` | `/api/v1/contacts` | List all contacts (supports `user_id`, `limit`, `offset` query params) |
+| `POST` | `/api/v1/contacts` | Create a contact |
+| `GET` | `/api/v1/contacts/{userId}` | List contacts for a specific user |
+| `GET` | `/api/v1/contacts/{userId}/{uid}` | Get a single contact |
+| `PUT` | `/api/v1/contacts/{userId}/{uid}` | Update a contact |
+| `DELETE` | `/api/v1/contacts/{userId}/{uid}` | Delete a contact |
 
 ### Create a contact
 
