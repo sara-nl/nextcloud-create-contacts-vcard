@@ -18,11 +18,13 @@ class Application extends App implements IBootstrap
         parent::__construct(self::APP_ID, $urlParams);
     }
 
+    #[\Override]
     public function register(IRegistrationContext $context): void
     {
         // Register services, event listeners, etc. here if needed
     }
 
+    #[\Override]
     public function boot(IBootContext $context): void
     {
         // Runtime initialization if needed
