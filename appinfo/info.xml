@@ -22,6 +22,7 @@ Use case: Automatically add contacts when users accept invitations from federate
     <category>integration</category>
     <bugs>https://github.com/sara-nl/nextcloud-create-contacts-vcard/issues</bugs>
     <dependencies>
-        <nextcloud min-version="28" max-version="33"/>
+        <php min-version="8.2"/>
+        <nextcloud min-version="33" max-version="35"/>
     </dependencies>
 </info>
