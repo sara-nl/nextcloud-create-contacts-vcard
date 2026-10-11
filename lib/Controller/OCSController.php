@@ -7,11 +7,16 @@ namespace OCA\VCardAPI\Controller;
 use OCA\VCardAPI\AppInfo\Application;
 use OCA\VCardAPI\Service\VCardService;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController as BaseOCSController;
 use OCP\IRequest;
 use Psr\Log\LoggerInterface;
 
+/**
+ * All endpoints are admin-only: Nextcloud requires an admin unless a method
+ * is marked #[NoAdminRequired].
+ */
 class OCSController extends BaseOCSController
 {
     public function __construct(
@@ -26,14 +31,12 @@ class OCSController extends BaseOCSController
      * GET /api/v1/contacts
      * Get all contacts, optionally filtered by user_id
      *
-     * @AdminRequired
-     * @NoCSRFRequired
-     *
      * @param string|null $user_id Filter by user ID
      * @param int $limit Maximum results (default 100)
      * @param int $offset Pagination offset
      * @return DataResponse
      */
+    #[NoCSRFRequired]
     public function getAllContacts(?string $user_id = null, int $limit = 100, int $offset = 0): DataResponse
     {
         try {
@@ -54,9 +57,6 @@ class OCSController extends BaseOCSController
      * POST /api/v1/contacts
      * Create a new contact in a user's address book
      *
-     * @AdminRequired
-     * @NoCSRFRequired
-     *
      * @param string $user_id Target user ID
      * @param string $displayname Contact display name
      * @param string $email Contact email
@@ -64,6 +64,7 @@ class OCSController extends BaseOCSController
      * @param string|null $organization Organization (optional)
      * @return DataResponse
      */
+    #[NoCSRFRequired]
     public function createContact(
         string $user_id,
         string $displayname,
@@ -110,12 +111,10 @@ class OCSController extends BaseOCSController
      * GET /api/v1/contacts/{userId}
      * Get contacts for a specific user
      *
-     * @AdminRequired
-     * @NoCSRFRequired
-     *
      * @param string $userId User ID
      * @return DataResponse
      */
+    #[NoCSRFRequired]
     public function listUserContacts(string $userId): DataResponse
     {
         try {
@@ -140,13 +139,11 @@ class OCSController extends BaseOCSController
      * GET /api/v1/contacts/{userId}/{uid}
      * Get a specific contact
      *
-     * @AdminRequired
-     * @NoCSRFRequired
-     *
      * @param string $userId User ID
      * @param string $uid Contact UID
      * @return DataResponse
      */
+    #[NoCSRFRequired]
     public function getContact(string $userId, string $uid): DataResponse
     {
         try {
@@ -177,13 +174,11 @@ class OCSController extends BaseOCSController
      * DELETE /api/v1/contacts/{userId}/{uid}
      * Delete a contact
      *
-     * @AdminRequired
-     * @NoCSRFRequired
-     *
      * @param string $userId User ID
      * @param string $uid Contact UID
      * @return DataResponse
      */
+    #[NoCSRFRequired]
     public function deleteContact(string $userId, string $uid): DataResponse
     {
         try {
@@ -214,9 +209,6 @@ class OCSController extends BaseOCSController
      * PUT /api/v1/contacts/{userId}/{uid}
      * Update a contact
      *
-     * @AdminRequired
-     * @NoCSRFRequired
-     *
      * @param string $userId User ID
      * @param string $uid Contact UID
      * @param string $displayname New display name
@@ -225,6 +217,7 @@ class OCSController extends BaseOCSController
      * @param string|null $organization New organization
      * @return DataResponse
      */
+    #[NoCSRFRequired]
     public function updateContact(
         string $userId,
         string $uid,
