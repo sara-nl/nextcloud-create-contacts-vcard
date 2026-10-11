@@ -44,7 +44,7 @@ class OCSController extends BaseOCSController
             return new DataResponse($result);
         } catch (\Exception $e) {
             $this->logger->error('Failed to get contacts', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
             ]);
             return new DataResponse(
                 ['message' => 'Failed to get contacts: ' . $e->getMessage()],
@@ -97,7 +97,7 @@ class OCSController extends BaseOCSController
             );
         } catch (\Exception $e) {
             $this->logger->error('Failed to create contact', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
                 'user_id' => $user_id,
             ]);
             return new DataResponse(
@@ -125,7 +125,7 @@ class OCSController extends BaseOCSController
             ]);
         } catch (\Exception $e) {
             $this->logger->error('Failed to get user contacts', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
                 'user_id' => $userId,
             ]);
             return new DataResponse(
@@ -159,7 +159,7 @@ class OCSController extends BaseOCSController
             return new DataResponse($contact);
         } catch (\Exception $e) {
             $this->logger->error('Failed to get contact', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
                 'user_id' => $userId,
                 'uid' => $uid,
             ]);
@@ -194,7 +194,7 @@ class OCSController extends BaseOCSController
             return new DataResponse(['message' => 'Contact deleted successfully']);
         } catch (\Exception $e) {
             $this->logger->error('Failed to delete contact', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
                 'user_id' => $userId,
                 'uid' => $uid,
             ]);
@@ -254,7 +254,7 @@ class OCSController extends BaseOCSController
             return new DataResponse($result);
         } catch (\Exception $e) {
             $this->logger->error('Failed to update contact', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
                 'user_id' => $userId,
                 'uid' => $uid,
             ]);

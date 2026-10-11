@@ -134,7 +134,7 @@ class VCardService
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get contacts for user: ' . $userId, [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
             ]);
         }
 
@@ -323,7 +323,7 @@ class VCardService
             ];
         } catch (\Exception $e) {
             $this->logger->warning('Failed to parse VCard', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
             ]);
             return null;
         }
