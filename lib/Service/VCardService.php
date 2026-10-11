@@ -6,7 +6,6 @@ namespace OCA\VCardAPI\Service;
 
 use OCA\DAV\CardDAV\CardDavBackend;
 use OCP\IUserManager;
-use OCP\Security\ISecureRandom;
 use Psr\Log\LoggerInterface;
 use Sabre\VObject\Reader;
 
@@ -15,7 +14,6 @@ class VCardService
     public function __construct(
         private CardDavBackend $cardDavBackend,
         private IUserManager $userManager,
-        private ISecureRandom $secureRandom,
         private LoggerInterface $logger
     ) {
     }
@@ -362,7 +360,7 @@ class VCardService
      */
     private function generateUuid(): string
     {
-        $data = $this->secureRandom->generate(16);
+        $data = random_bytes(16);
 
         // Set version to 4
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
