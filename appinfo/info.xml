@@ -14,7 +14,7 @@ Features:
 
 Use case: Automatically add contacts when users accept invitations from federated instances.
     ]]></description>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <licence>agpl</licence>
     <author mail="info@surf.nl">SURF</author>
     <namespace>VCardAPI</namespace>
