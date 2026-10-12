@@ -11,6 +11,7 @@ When users accept federated sharing invitations between Nextcloud instances, thi
 - **CRUD API** for contacts via the Nextcloud OCS endpoint
 - Creates standards-compliant VCard 3.0 entries with `CLOUD` / `X-NEXTCLOUD-CLOUD-ID` fields
 - Operates on any user's default address book (creates one if it doesn't exist)
+- Only touches address books the user owns, never ones shared with them
 - Admin-only access — all endpoints require Nextcloud admin credentials
 - Supports pagination, per-user filtering, and JSON/XML responses
 
