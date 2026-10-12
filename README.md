@@ -95,6 +95,14 @@ curl -u 'admin:password' \
 
 ```
 
+### Get a single contact
+
+```bash
+curl -u 'admin:password' \
+  -H 'OCS-APIRequest: true' \
+  'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts/alice/{uid}'
+```
+
 ### Update a contact
 
 ```bash
@@ -108,6 +116,11 @@ curl -X PUT -u 'admin:password' \
   }' \
   'https://nextcloud.example.com/ocs/v2.php/apps/contact_vcard_api/api/v1/contacts/alice/{uid}'
 ```
+
+**Required fields:** `displayname`, `email`, `cloud_id`
+**Optional fields:** `organization`
+
+The contact is replaced as a whole, so leaving out `organization` removes it from the contact.
 
 ### Delete a contact
 
