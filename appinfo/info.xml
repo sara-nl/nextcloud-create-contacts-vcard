@@ -10,7 +10,6 @@ Surf VCard provides an OCS API for administrators to manage VCards across Nextcl
 Features:
 - Create VCards in user address books via API
 - Retrieve VCards for synchronization
-- Trusted domain whitelist for security
 - Admin-only access control
 
 Use case: Automatically add contacts when users accept invitations from federated instances.
