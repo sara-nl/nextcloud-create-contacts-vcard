@@ -10,18 +10,18 @@ Surf VCard provides an OCS API for administrators to manage VCards across Nextcl
 Features:
 - Create VCards in user address books via API
 - Retrieve VCards for synchronization
-- Trusted domain whitelist for security
 - Admin-only access control
 
 Use case: Automatically add contacts when users accept invitations from federated instances.
     ]]></description>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <licence>agpl</licence>
     <author mail="info@surf.nl">SURF</author>
     <namespace>VCardAPI</namespace>
     <category>integration</category>
     <bugs>https://github.com/sara-nl/nextcloud-create-contacts-vcard/issues</bugs>
     <dependencies>
-        <nextcloud min-version="28" max-version="33"/>
+        <php min-version="8.2"/>
+        <nextcloud min-version="33" max-version="35"/>
     </dependencies>
 </info>

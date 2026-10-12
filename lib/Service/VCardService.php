@@ -6,7 +6,6 @@ namespace OCA\VCardAPI\Service;
 
 use OCA\DAV\CardDAV\CardDavBackend;
 use OCP\IUserManager;
-use OCP\Security\ISecureRandom;
 use Psr\Log\LoggerInterface;
 use Sabre\VObject\Reader;
 
@@ -15,7 +14,6 @@ class VCardService
     public function __construct(
         private CardDavBackend $cardDavBackend,
         private IUserManager $userManager,
-        private ISecureRandom $secureRandom,
         private LoggerInterface $logger
     ) {
     }
@@ -115,10 +113,9 @@ class VCardService
     public function getUserContacts(string $userId): array
     {
         $contacts = [];
-        $principalUri = "principals/users/$userId";
 
         try {
-            $addressBooks = $this->cardDavBackend->getAddressBooksForUser($principalUri);
+            $addressBooks = $this->getOwnAddressBooks($userId);
 
             foreach ($addressBooks as $addressBook) {
                 $cards = $this->cardDavBackend->getCards($addressBook['id']);
@@ -134,7 +131,7 @@ class VCardService
             }
         } catch (\Exception $e) {
             $this->logger->warning('Failed to get contacts for user: ' . $userId, [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
             ]);
         }
 
@@ -150,8 +147,7 @@ class VCardService
      */
     public function getContact(string $userId, string $uid): ?array
     {
-        $principalUri = "principals/users/$userId";
-        $addressBooks = $this->cardDavBackend->getAddressBooksForUser($principalUri);
+        $addressBooks = $this->getOwnAddressBooks($userId);
 
         foreach ($addressBooks as $addressBook) {
             $card = $this->cardDavBackend->getCard($addressBook['id'], "$uid.vcf");
@@ -177,8 +173,7 @@ class VCardService
      */
     public function deleteContact(string $userId, string $uid): bool
     {
-        $principalUri = "principals/users/$userId";
-        $addressBooks = $this->cardDavBackend->getAddressBooksForUser($principalUri);
+        $addressBooks = $this->getOwnAddressBooks($userId);
 
         foreach ($addressBooks as $addressBook) {
             $card = $this->cardDavBackend->getCard($addressBook['id'], "$uid.vcf");
@@ -214,8 +209,7 @@ class VCardService
         string $cloudId,
         ?string $organization = null
     ): ?array {
-        $principalUri = "principals/users/$userId";
-        $addressBooks = $this->cardDavBackend->getAddressBooksForUser($principalUri);
+        $addressBooks = $this->getOwnAddressBooks($userId);
 
         foreach ($addressBooks as $addressBook) {
             $card = $this->cardDavBackend->getCard($addressBook['id'], "$uid.vcf");
@@ -323,10 +317,23 @@ class VCardService
             ];
         } catch (\Exception $e) {
             $this->logger->warning('Failed to parse VCard', [
-                'exception' => $e->getMessage(),
+                'exception' => $e,
             ]);
             return null;
         }
+    }
+
+    /**
+     * Get the address books the user owns. Books shared with them are left out
+     * on purpose: the CardDAV backend doesn't check share permissions, so
+     * writing to those would bypass read-only shares and change other
+     * people's contacts.
+     *
+     * @return list<array{id: int, uri: string, ...}>
+     */
+    private function getOwnAddressBooks(string $userId): array
+    {
+        return $this->cardDavBackend->getUsersOwnAddressBooks("principals/users/$userId");
     }
 
     /**
@@ -334,8 +341,7 @@ class VCardService
      */
     private function getOrCreateDefaultAddressBook(string $userId): int
     {
-        $principalUri = "principals/users/$userId";
-        $addressBooks = $this->cardDavBackend->getAddressBooksForUser($principalUri);
+        $addressBooks = $this->getOwnAddressBooks($userId);
 
         // Find "contacts" address book (default)
         foreach ($addressBooks as $book) {
@@ -351,7 +357,7 @@ class VCardService
 
         // Create default address book
         return $this->cardDavBackend->createAddressBook(
-            $principalUri,
+            "principals/users/$userId",
             'contacts',
             ['{DAV:}displayname' => 'Contacts']
         );
@@ -362,7 +368,7 @@ class VCardService
      */
     private function generateUuid(): string
     {
-        $data = $this->secureRandom->generate(16);
+        $data = random_bytes(16);
 
         // Set version to 4
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
